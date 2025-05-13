@@ -1,6 +1,4 @@
-package com.korea.todo.dto;
-
-import com.korea.todo.model.TodoEntity;
+package com.korea.todo.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,11 +13,28 @@ public class TodoDTO {
 	private String id;
 	private String title;
 	private boolean done;
-	
-	public TodoDTO(final TodoEntity entity) {
+		
+	//생성자 (TodoEntity -> TodoDTO)
+	public TodoDTO(TodoEntity entity) {
 		this.id = entity.getId();
 		this.title = entity.getTitle();
 		this.done = entity.isDone();
 	}
 	
+	//TodoDTO -> TodoEntity
+	public static TodoEntity toEntity(TodoDTO dto) {
+		return TodoEntity.builder()
+					.id(dto.getId())
+					.title(dto.getTitle())
+					.done(dto.isDone())
+					.build();
+	}
 }
+
+
+
+
+
+
+
+
