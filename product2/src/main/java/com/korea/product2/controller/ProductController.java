@@ -46,10 +46,11 @@ public class ProductController {
         if (entity == null) {
             return ResponseEntity.notFound().build();
         }
+        
 
-        entity.setP_name(dto.getP_name());
-        entity.setP_price(dto.getP_price());
-        entity.setP_count(dto.getP_count());
+        entity.setProductName(dto.getProductName());
+        entity.setProductPrice(dto.getProductPrice());
+        entity.setProductStock(dto.getProductStock());
 
         ProductEntity updated = service.save(entity);
         return ResponseEntity.ok(new ProductDTO(updated));

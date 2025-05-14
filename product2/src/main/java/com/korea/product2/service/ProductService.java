@@ -28,12 +28,9 @@ public class ProductService {
         return List.of(new ProductDTO(productEntity)); // 저장된 엔티티로 DTO 변환 후 반환
     }
     
-    
-    
     public ProductEntity findById(int id) {
         return productRepository.findById(id).orElse(null);
     }
-
     public ProductEntity save(ProductEntity entity) {
         return productRepository.save(entity);
     }

@@ -2,8 +2,6 @@ package com.korea.product2.dto;
 
 import java.time.LocalDateTime;
 
-import org.springframework.web.service.annotation.GetExchange;
-
 import com.korea.product2.model.ProductEntity;
 
 import lombok.AllArgsConstructor;
@@ -12,34 +10,37 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class ProductDTO {
-	private int p_id;
-	private String p_name;
-	private int p_count;
-	private int p_price;
-	private LocalDateTime p_create_date;
-	private LocalDateTime p_update_date;
 	
-	public ProductDTO(ProductEntity entity) {
-		this.p_id = entity.getP_id();
-		this.p_name = entity.getP_name();
-		this.p_count = entity.getP_count();
-		this.p_price = entity.getP_price();
-        this.p_create_date = entity.getP_create_date();
-        this.p_update_date = entity.getP_update_date();
+	private int productId;
+	private String productName;
+	private int productStock;
+	private int productPrice;
+	private LocalDateTime registerDate;
+	private LocalDateTime updateDate;
+	
+    // Entity -> DTO 변환
+    public ProductDTO(ProductEntity entity) {
+        this.productId = entity.getProductId();
+        this.productName = entity.getProductName();
+        this.productStock = entity.getProductStock();
+        this.productPrice = entity.getProductStock();
+        this.registerDate = entity.getRegisterDate();
+        this.updateDate = entity.getUpdateDate();
     }
-	
-	public static ProductEntity toEntity(ProductDTO dto) {
-		return ProductEntity.builder()
-							.p_id(dto.getP_id())
-							.p_name(dto.getP_name())
-							.p_count(dto.getP_count())
-							.p_price(dto.getP_price())
-							.p_create_date(dto.getP_create_date())
-							.p_update_date(dto.getP_update_date())
-							.build();
-	}
+
+    // DTO -> Entity 변환
+    public static ProductEntity toEntity(ProductDTO dto) {
+        return ProductEntity.builder()
+                .productId(dto.getProductId())
+                .productName(dto.getProductName())
+                .productStock(dto.getProductStock())
+                .productPrice(dto.getProductPrice())
+                .registerDate(dto.getRegisterDate())
+                .updateDate(dto.getUpdateDate())
+                .build();
+    }
 }
