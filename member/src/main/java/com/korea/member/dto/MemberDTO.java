@@ -1,8 +1,5 @@
 package com.korea.member.dto;
 
-import java.util.List;
-import java.util.Optional;
-
 import com.korea.member.model.MemberEntity;
 
 import lombok.AllArgsConstructor;

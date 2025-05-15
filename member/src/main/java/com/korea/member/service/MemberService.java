@@ -17,11 +17,12 @@ public class MemberService {
 	@Autowired
 	private MemberRepository repository;
 	
+	//전체 회원 조회
 	public List<MemberDTO> AllMemberShow(){ 
 		return repository.findAll().stream()
 				.map(MemberDTO::new).collect(Collectors.toList());
 	}
-	
+	//이메일 받기
 	public List<MemberDTO> getEmail(String email) {
 	    Optional<MemberEntity> entity = repository.findByEmail(email);
 	    if (entity.isPresent()) {
@@ -30,31 +31,29 @@ public class MemberService {
 	        return List.of();
 	    }
 	}
-
+	//회원 추가
 	public List<MemberDTO> create(MemberEntity entity){
+		//JPA로 데이터베이스에 데이터를 추가할 때 만큼은 Entity타입이어야한다
 		repository.save(entity);
 		return repository.findAll().stream()
 					.map(MemberDTO::new).collect(Collectors.toList());
 	}
-	
+	//비밀번호 변경
 	public List<MemberDTO> updateMember(MemberEntity entity, String email){
 		Optional<MemberEntity> member = repository.findByEmail(email);
 		member.ifPresent(memberentity->{
-			memberentity.setName(entity.getName());
 			memberentity.setPassword(entity.getPassword());
-			
 			repository.save(memberentity);
 		});
 		return AllMemberShow();
 	}
-	
-	public boolean deleteMember(int id){
-		Optional<MemberEntity> user = repository.findById(id);
-		if(user.isPresent()) {
+	//회원 삭제
+	public List<MemberDTO> deleteMember(int id){
+		if(repository.existsById(id)) {
 			repository.deleteById(id);
-			return true;
 		}else {
-			return false;
+			throw new RuntimeException("조회된 회원이 없습니다");
 		}
+	    return AllMemberShow();
 	}
 }

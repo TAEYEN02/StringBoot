@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.korea.member.dto.MemberDTO;
@@ -44,20 +44,20 @@ public class MemberController {
 	}
 	
 	@PutMapping("/{email}/password")
-	public ResponseEntity<?> update(@RequestBody MemberDTO dto, @PathVariable String email){
-		MemberEntity entity = MemberDTO.toEntiy(dto);	
-		List<MemberDTO> user = service.updateMember(entity,email);
-		return ResponseEntity.ok(user);
+	public List<MemberDTO> updatePassword(@PathVariable String email, @RequestBody MemberEntity entity) {
+	    String newPassword = entity.getPassword();
+	    service.updateMember(entity, newPassword);
+		return service.updateMember(entity, email);
 	}
 	
 	@DeleteMapping("/{id}")
-	public ResponseEntity<?> deleteUser(@PathVariable int id){
-		boolean user = service.deleteMember(id);
-		if(user) {
-			return ResponseEntity.ok("삭제되었습니다..");
-		}else {
-			return ResponseEntity.status(400).body("아이디를 찾을 수 없습니다.. : "+id);
-		}
+	public ResponseEntity<?> deleteUser(@PathVariable int id) {
+	    try {
+	        List<MemberDTO> updatedList = service.deleteMember(id);
+	        return ResponseEntity.ok(updatedList);
+	    } catch (Exception e) {
+	        return ResponseEntity.status(400).body("아이디를 찾을 수 없습니다: " + id);
+	    }
 	}
 }
 
