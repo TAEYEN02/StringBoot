@@ -1,4 +1,6 @@
-package com.korea.todo.model;
+package com.korea.todo.dto;
+
+import com.korea.todo.model.TodoEntity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

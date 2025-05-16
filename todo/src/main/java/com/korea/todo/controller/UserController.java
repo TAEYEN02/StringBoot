@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.korea.todo.dto.ResponseDTO;
 import com.korea.todo.dto.UserDTO;
-import com.korea.todo.model.ResponseDTO;
 import com.korea.todo.model.UserEntity;
 import com.korea.todo.security.TokenProvider;
 import com.korea.todo.service.UserService;

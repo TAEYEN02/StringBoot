@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.korea.todo.dto.ResponseDTO;
 import com.korea.todo.dto.TestRequestBodyDTO;
-import com.korea.todo.model.ResponseDTO;
 
 @RestController
 //데이터를 반환하는 컨트롤러로 사용

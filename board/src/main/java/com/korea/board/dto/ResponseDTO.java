@@ -1,25 +1,17 @@
-package com.korea.todo.model;
+package com.korea.board.dto;
 
 import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-//http응답으로 사용할 DTO
-
+@Data
 @Builder
 @AllArgsConstructor
-@Data
+@NoArgsConstructor
 public class ResponseDTO<T> {
-	
 	private String error;
 	private List<T> data;
 }
-
-
-
-
-
-
-
