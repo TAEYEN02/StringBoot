@@ -83,10 +83,18 @@ public class BoardService {
 	    }
 
 	    return entities.stream()
-	                   .map(BoardDTO::new) // <-- 생성자 이용!
+	                   .map(BoardDTO::new) 
 	                   .collect(Collectors.toList());
 	}
-
-
-
+	
+	public Optional<BoardEntity> selectId(Long id) {
+	    return repository.findById(id); 
+	}
+	
+	public List<BoardEntity> searchTitle(String title){
+		return repository.findByTitleContaining(title);
+	}
+	public List<BoardEntity> searchAuthor(String author){
+		return repository.findByAuthorContaining(author);
+	}
 }

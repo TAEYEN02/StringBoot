@@ -1,8 +1,10 @@
 package com.korea.board.controller;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -50,6 +52,36 @@ public class BoardController {
 		}
 	}
 
+	@GetMapping("id/{id}")
+	public ResponseEntity<?> searchBoard(@PathVariable("id") Long id) {
+		Optional<BoardEntity> result = service.selectId(id);
+		if (result.isPresent()) {
+			return ResponseEntity.ok(result.get());
+		} else {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("정보를 찾을 수 없습니다.");
+		}
+	}
+
+	@GetMapping("/title/{title}")
+	public ResponseEntity<?> searchTitle(@PathVariable("title") String title) {
+		List<BoardEntity> result = service.searchTitle(title);
+		if (!result.isEmpty()) {
+			return ResponseEntity.ok(result);
+		} else {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("검색 결과가 없습니다.");
+		}
+	}
+
+	@GetMapping("/author/{author}")
+	public ResponseEntity<?> searchAuthor(@PathVariable("author") String author) {
+		List<BoardEntity> result = service.searchAuthor(author);
+		if (!result.isEmpty()) {
+			return ResponseEntity.ok(result);
+		} else {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("검색 결과가 없습니다.");
+		}
+	}
+
 	@PutMapping
 	public ResponseEntity<?> update(@RequestBody BoardDTO dto) {
 		BoardEntity entity = BoardDTO.toEntity(dto);
@@ -62,14 +94,13 @@ public class BoardController {
 		service.deleteBoardsByIds(idListDto.getIds());
 		return ResponseEntity.ok().build();
 	}
-	
-	@GetMapping("/boards")
-    public ResponseEntity<List<BoardDTO>> getList(
-            @RequestParam(required = false) String searchType,
-            @RequestParam(required = false) String keyword) {
 
-        List<BoardDTO> list = service.searchBoards(searchType, keyword);
-        return ResponseEntity.ok(list);
-    }
+	@GetMapping("/boards")
+	public ResponseEntity<List<BoardDTO>> getList(@RequestParam(required = false) String searchType,
+			@RequestParam(required = false) String keyword) {
+
+		List<BoardDTO> list = service.searchBoards(searchType, keyword);
+		return ResponseEntity.ok(list);
+	}
 
 }
