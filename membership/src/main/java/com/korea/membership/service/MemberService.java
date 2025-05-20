@@ -20,4 +20,9 @@ public class MemberService {
 		return repository.findAll().stream()
 					.map(MemberDTO::new).collect(Collectors.toList());
 	}
+	
+	public List<MemberDTO> memberList(){
+		return repository.findAll().stream().map(MemberDTO::new)
+					.collect(Collectors.toList());
+	}
 }
