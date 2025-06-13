@@ -3,7 +3,6 @@ package com.kor.rnBoard.service;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kor.rnBoard.domain.Post;
@@ -15,6 +14,7 @@ public class PostService {
 	private PostRepository repository;
 
 	// 생성자 주입
+	// 또는 @Autowired
 	public PostService(PostRepository postRepository) {
 		this.repository = postRepository;
 	}
@@ -33,9 +33,7 @@ public class PostService {
 
 		// 조회수 증가 (int 타입이라 null 체크 불필요)
 		post.setViews(post.getViews() + 1);
-
 		repository.save(post);
-
 		return new PostDTO(post);
 	}
 
