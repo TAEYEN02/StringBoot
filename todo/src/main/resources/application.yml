@@ -1,12 +1,16 @@
 server:
   port: 5000
+
 spring:
-     jpa:
-       show-sql: true
-       database-platform: org.hibernate.dialect.MySQL8Dialect
-       hibernate:
-         ddl-auto: update
-       datasource: 
-         url: jdbc:mysql://awseb-e-rpme3cxu8k-stack-awsebrdsdatabase-icvdtfwngoyk.cdkacaomigq5.ap-northeast-2.rds.amazonaws.com:3306/todo?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
-         username: testpm
-         password: xodus2331
+  jpa:
+    show-sql: true
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        physical_naming_strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+  datasource:
+    url: jdbc:mysql://awseb-e-rpme3cxu8k-stack-awsebrdsdatabase-icvdtfwngoyk.cdkacaomigq5.ap-northeast-2.rds.amazonaws.com:3306/todo?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+    username: testpm
+    password: xodus2331!

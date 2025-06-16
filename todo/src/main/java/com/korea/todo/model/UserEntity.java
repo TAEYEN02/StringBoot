@@ -19,7 +19,7 @@ import lombok.NoArgsConstructor;
 @Builder//lombok의 Builder패턴을 사용하여 객체를 생성할 수 있도록 해준다.
 @NoArgsConstructor //기본 생성자를 생성해준다.
 @AllArgsConstructor //모든 필드를 인자로 받는 생성자를 자동으로 생성해준다.
-@Table
+@Table(name="user_entity")
 //테이블에서 username컬럼에 유니크 제약조건을 설정
 public class UserEntity {
 
